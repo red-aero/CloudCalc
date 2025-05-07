@@ -80,3 +80,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 - Design inspired by modern calculator applications
 - Built with a focus on user experience and functionality
+
+<img width="1326" alt="Screenshot 2025-05-07 at 11 57 41 am" src="https://github.com/user-attachments/assets/3e98706a-bd38-49fd-8c88-4c7a5fad68ca" />
+
