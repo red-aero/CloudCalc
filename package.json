@@ -1,0 +1,21 @@
+{
+  "name": "cloudcalc",
+  "version": "1.0.0",
+  "description": "A modern calculator web application with multiple calculation modes",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "calculator",
+    "web app",
+    "javascript",
+    "node.js"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}

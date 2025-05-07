@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <title>Advanced Calculator</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+    <meta name="description" content="This Advanced calculator performs basic and scientific mathematical operations with ease.">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- API Client -->
+    <script src="assets/js/api/client.js"></script>
+
+    <!-- Calculator Components -->
+    <script src="assets/js/converter.js"></script>
+    <script src="assets/js/app.js"></script>
+
+    <!-- Main Application -->
+    <script src="assets/js/main.js" defer></script>
+</head>
+<body>
+    <!-- Login/Register Overlay -->
+    <div class="auth-overlay" id="auth_overlay">
+        <div class="auth-container">
+            <div class="auth-header">
+                <h2>Advanced Calculator</h2>
+                <p>Sign in to access your calculator and saved history</p>
+            </div>
+
+            <div class="auth-tabs">
+                <button class="auth-tab active" id="login_tab">Login</button>
+                <button class="auth-tab" id="register_tab">Register</button>
+            </div>
+
+            <div class="auth-form-container">
+                <!-- Login Form -->
+                <form class="auth-form" id="login_form" autocomplete="off">
+                    <div class="form-group">
+                        <label for="login_username">Username</label>
+                        <input type="text" id="login_username" placeholder="Enter your username" required autocomplete="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="login_password">Password</label>
+                        <input type="password" id="login_password" placeholder="Enter your password" required autocomplete="current-password">
+                    </div>
+                    <button type="submit" class="auth-button">Sign In</button>
+                </form>
+
+                <!-- Register Form -->
+                <form class="auth-form" id="register_form" style="display: none;" autocomplete="off">
+                    <div class="form-group">
+                        <label for="register_username">Username</label>
+                        <input type="text" id="register_username" placeholder="Choose a username" required autocomplete="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="register_password">Password</label>
+                        <input type="password" id="register_password" placeholder="Choose a password" required autocomplete="new-password">
+                    </div>
+                    <div class="form-group">
+                        <label for="register_confirm_password">Confirm Password</label>
+                        <input type="password" id="register_confirm_password" placeholder="Confirm your password" required autocomplete="new-password">
+                    </div>
+                    <button type="submit" class="auth-button">Register</button>
+                </form>
+            </div>
+
+            <div class="auth-guest">
+                <button id="guest_mode_btn">Continue as Guest</button>
+                <p>Guest mode doesn't save your history</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Calculator (hidden until logged in) -->
+    <div class="calculator-container" id="calculator_container" style="display: none;">
+        <div class="user-info" id="user_info">
+            <span id="username_display">Guest</span>
+            <button id="logout_btn">Logout</button>
+        </div>
+
+        <div class="calculator-layout">
+            <!-- Left Panel - Header -->
+            <div class="calculator-header-panel">
+                <div class="calculator-header">
+                    <div class="calculator-title">
+                        <span class="calculator-icon">✧</span>
+                        <span>Advanced Calculator</span>
+                    </div>
+                    <div class="calculator-mode-switch">
+                        <button class="mode-btn active" id="basic_mode">
+                            <span class="mode-icon">123</span>
+                            <span class="mode-text">Basic</span>
+                        </button>
+                        <button class="mode-btn" id="scientific_mode">
+                            <span class="mode-icon">∑</span>
+                            <span class="mode-text">Scientific</span>
+                        </button>
+                        <button class="mode-btn" id="conversion_mode">
+                            <span class="mode-icon">⇄</span>
+                            <span class="mode-text">Convert</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Center Panel - Calculator -->
+            <div class="calculator-wrapper">
+                <div class="calculator-display">
+                    <div class="history-display" id="history_display"></div>
+                    <div class="memory-display" id="memory_display"></div>
+                    <input class="calculator-input" id="input_field" value="0" type="text" readonly>
+                </div>
+
+                <div class="calculator-memory">
+                    <div class="calculator-memory-buttons">
+                        <button class="memory" data-action="MC">MC</button>
+                        <button class="memory" data-action="MR">MR</button>
+                        <button class="memory" data-action="M+">M+</button>
+                        <button class="memory" data-action="M-">M-</button>
+                    </div>
+                </div>
+
+                <div class="calculator-keypad">
+                    <!-- Scientific Keypad -->
+                    <div class="calculator-scientific" id="scientific_keypad">
+                        <button class="scientific" data-action="sin">sin</button>
+                        <button class="scientific" data-action="cos">cos</button>
+                        <button class="scientific" data-action="tan">tan</button>
+                        <button class="scientific" data-action="log">log</button>
+                        <button class="scientific" data-action="ln">ln</button>
+
+                        <button class="scientific" data-action="asin">asin</button>
+                        <button class="scientific" data-action="acos">acos</button>
+                        <button class="scientific" data-action="atan">atan</button>
+                        <button class="scientific" data-action="pow">x^y</button>
+                        <button class="scientific" data-action="sqrt">√</button>
+
+                        <button class="scientific" data-action="pi">π</button>
+                        <button class="scientific" data-action="e">e</button>
+                        <button class="scientific" data-action="fact">x!</button>
+                        <button class="scientific" data-action="exp">EXP</button>
+                        <button class="scientific" data-action="mod">mod</button>
+                    </div>
+
+                    <!-- Unit Conversion Keypad -->
+                    <div class="calculator-conversion" id="conversion_keypad" style="display: none;">
+                        <div class="conversion-container">
+                            <h3 class="conversion-title">Unit Converter</h3>
+
+                            <div class="conversion-category">
+                                <label for="conversion_category">Category:</label>
+                                <select id="conversion_category">
+                                    <option value="length">Length</option>
+                                    <option value="mass">Mass/Weight</option>
+                                    <option value="temperature">Temperature</option>
+                                    <option value="area">Area</option>
+                                    <option value="volume">Volume</option>
+                                    <option value="time">Time</option>
+                                    <option value="speed">Speed</option>
+                                    <option value="pressure">Pressure</option>
+                                    <option value="energy">Energy</option>
+                                    <option value="data">Data</option>
+                                </select>
+                            </div>
+
+                            <div class="conversion-input">
+                                <div class="conversion-from">
+                                    <label for="conversion_from_value">From:</label>
+                                    <input type="number" id="conversion_from_value" value="1" autocomplete="off" inputmode="decimal" step="any">
+                                    <select id="conversion_from_unit"></select>
+                                </div>
+
+                                <div class="conversion-arrow">
+                                    <span>↓</span>
+                                </div>
+
+                                <div class="conversion-to">
+                                    <label for="conversion_to_value">To:</label>
+                                    <input type="number" id="conversion_to_value" readonly>
+                                    <select id="conversion_to_unit"></select>
+                                </div>
+                            </div>
+
+                            <div class="conversion-buttons">
+                                <button class="conversion-button" id="conversion_swap">
+                                    <span class="swap-icon">⇄</span> Swap
+                                </button>
+                                <button class="conversion-button" id="conversion_clear">
+                                    Clear
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Basic Keypad -->
+                    <div class="calculator-basic" id="calculator_keypad">
+                        <div>
+                            <button class="gray-main" data-action="AC">AC</button>
+                            <button class="gray-main" data-action="±">±</button>
+                            <button class="gray-main" data-action="%">%</button>
+                            <button class="action" data-action="/">÷</button>
+                        </div>
+                        <div>
+                            <button>7</button>
+                            <button>8</button>
+                            <button>9</button>
+                            <button class="action" data-action="*">×</button>
+                        </div>
+                        <div>
+                            <button>4</button>
+                            <button>5</button>
+                            <button>6</button>
+                            <button class="action" data-action="-">−</button>
+                        </div>
+                        <div>
+                            <button>1</button>
+                            <button>2</button>
+                            <button>3</button>
+                            <button class="action" data-action="+">+</button>
+                        </div>
+                        <div>
+                            <button class="long">0</button>
+                            <button>.</button>
+                            <button class="indigo" data-action="=">=</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel - History -->
+            <div class="calculator-history-panel" id="history_container">
+                <div class="history-title">
+                    <span>History</span>
+                    <button class="history-clear" id="clear_history">Clear</button>
+                </div>
+                <div id="history_list" class="history-list"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
