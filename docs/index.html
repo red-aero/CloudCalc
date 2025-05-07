@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudCalc Documentation</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #0a0a12 0%, #16213e 100%);
+            color: #e0e0e0;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(30, 30, 46, 0.95);
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 5px 15px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h1, h2 {
+            color: #bb86fc;
+            text-align: center;
+        }
+
+        .doc-section {
+            margin-bottom: 40px;
+        }
+
+        .doc-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .doc-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: rgba(40, 40, 60, 0.9);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .doc-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background-color: rgba(50, 50, 70, 0.9);
+        }
+
+        .doc-link {
+            color: #bb86fc;
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
+            font-size: 18px;
+        }
+
+        .doc-description {
+            margin-top: 8px;
+            color: #e0e0e0;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CloudCalc Documentation</h1>
+        <p>Welcome to the CloudCalc documentation. This page provides links to all the documentation resources for the CloudCalc application.</p>
+
+        <div class="doc-section">
+            <h2>User Documentation</h2>
+            <ul class="doc-list">
+                <li class="doc-item">
+                    <a href="user-guide.md" class="doc-link">User Guide</a>
+                    <p class="doc-description">Comprehensive guide for users on how to use CloudCalc, including all features and functionality.</p>
+                </li>
+                <li class="doc-item">
+                    <a href="../feedback.html" class="doc-link">Feedback Form</a>
+                    <p class="doc-description">Form for users to provide feedback on their experience with CloudCalc.</p>
+                </li>
+            </ul>
+        </div>
+
+        <div class="doc-section">
+            <h2>Technical Documentation</h2>
+            <ul class="doc-list">
+                <li class="doc-item">
+                    <a href="technical-documentation.md" class="doc-link">Technical Documentation</a>
+                    <p class="doc-description">Detailed technical documentation for developers, including architecture, components, and API reference.</p>
+                </li>
+                <li class="doc-item">
+                    <a href="diagrams/architecture.md" class="doc-link">Architecture Diagrams</a>
+                    <p class="doc-description">Visual representations of the CloudCalc architecture, including system overview, component interactions, and data flow.</p>
+                </li>
+                <li class="doc-item">
+                    <a href="testing-strategy.md" class="doc-link">Testing Strategy</a>
+                    <p class="doc-description">Comprehensive testing strategy for CloudCalc, including unit, integration, and system testing.</p>
+                </li>
+                <li class="doc-item">
+                    <a href="testing-and-deployment.md" class="doc-link">Testing and Deployment Guide</a>
+                    <p class="doc-description">Guide for running tests and deploying CloudCalc to different environments.</p>
+                </li>
+            </ul>
+        </div>
+
+        <div class="doc-section">
+            <h2>Product Management</h2>
+            <ul class="doc-list">
+                <li class="doc-item">
+                    <a href="user-feedback-form.md" class="doc-link">User Feedback Form (Markdown)</a>
+                    <p class="doc-description">Markdown version of the user feedback form for offline use.</p>
+                </li>
+                <li class="doc-item">
+                    <a href="feedback-analysis-guide.md" class="doc-link">Feedback Analysis Guide</a>
+                    <p class="doc-description">Guide for collecting, analyzing, and implementing user feedback for future updates.</p>
+                </li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            <p>CloudCalc Documentation © 2023 | All Rights Reserved</p>
+        </div>
+    </div>
+</body>
+</html>

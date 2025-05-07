@@ -72,6 +72,48 @@ CloudCalc is a modern, feature-rich calculator web application with a sleek user
 - **Scientific Mode**: Access advanced mathematical functions
 - **Conversion Mode**: Convert between different units of measurement
 
+## Documentation
+
+Comprehensive documentation is available in the `docs` directory:
+
+- **User Guide**: Complete guide for using CloudCalc ([docs/user-guide.md](docs/user-guide.md))
+- **Technical Documentation**: Architecture and implementation details ([docs/technical-documentation.md](docs/technical-documentation.md))
+- **Architecture Diagrams**: Visual representations of the system ([docs/diagrams/architecture.md](docs/diagrams/architecture.md))
+- **Testing Strategy**: Approach to testing the application ([docs/testing-strategy.md](docs/testing-strategy.md))
+- **Testing and Deployment Guide**: Instructions for testing and deployment ([docs/testing-and-deployment.md](docs/testing-and-deployment.md))
+
+You can also access the documentation through the documentation index page:
+
+```
+open docs/index.html
+```
+
+## Testing
+
+CloudCalc includes comprehensive testing:
+
+```bash
+# Run all tests
+npm test
+
+# Run unit tests only
+npm run test:unit
+
+# Run integration tests only
+npm run test:integration
+
+# Generate test coverage report
+npm run test:coverage
+```
+
+## Feedback
+
+We welcome feedback on CloudCalc! You can provide feedback using the feedback form:
+
+```
+open feedback.html
+```
+
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.

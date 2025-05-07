@@ -7,12 +7,12 @@
 document.addEventListener('DOMContentLoaded', async () => {
     try {
         console.log('Initializing application...');
-        
+
         // Initialize the API client
         if (typeof API !== 'undefined') {
             API.init();
         }
-        
+
         // Initialize Auth
         Auth.init();
 
@@ -46,28 +46,47 @@ async function registerAccount(username, password) {
 
         // Register user using the API client
         if (typeof API !== 'undefined' && API.users && API.users.register) {
-            return await API.users.register(username, password);
-        } else {
-            // Fallback to local storage if API is not available
-            const existingUser = localStorage.getItem(`user_${username}`);
-            if (existingUser) {
-                return { success: false, message: 'Username already exists' };
+            try {
+                const result = await API.users.register(username, password);
+                console.log('Registration successful:', result);
+                return result;
+            } catch (apiError) {
+                console.error('API registration error:', apiError);
+
+                // Check if it's a network error (server not available)
+                if (apiError.message.includes('Failed to fetch') ||
+                    apiError.message.includes('Network Error')) {
+                    console.warn('API server not available, falling back to local storage');
+                    // Fall through to local storage fallback
+                } else {
+                    // It's an API error, not a network error
+                    alert(`Registration failed: ${apiError.message}`);
+                    return { success: false, message: apiError.message };
+                }
             }
-            
-            // Simple password hashing (not secure, just for demo)
-            const hashedPassword = hashPassword(password);
-            
-            // Store user
-            const user = {
-                username,
-                password: hashedPassword,
-                createdAt: new Date().toISOString()
-            };
-            
-            localStorage.setItem(`user_${username}`, JSON.stringify(user));
-            
-            return { success: true, message: 'User registered successfully' };
         }
+
+        // Fallback to local storage if API is not available or network error
+        console.log('Using local storage fallback for registration');
+        const existingUser = localStorage.getItem(`user_${username}`);
+        if (existingUser) {
+            alert('Username already exists');
+            return { success: false, message: 'Username already exists' };
+        }
+
+        // Simple password hashing (not secure, just for demo)
+        const hashedPassword = hashPassword(password);
+
+        // Store user
+        const user = {
+            username,
+            password: hashedPassword,
+            createdAt: new Date().toISOString()
+        };
+
+        localStorage.setItem(`user_${username}`, JSON.stringify(user));
+
+        return { success: true, message: 'User registered successfully' };
     } catch (error) {
         console.error('Error registering account:', error);
         alert(`Failed to register account: ${error.message}`);
@@ -84,34 +103,54 @@ async function signIn(username, password) {
 
         // Login user using the API client
         if (typeof API !== 'undefined' && API.users && API.users.login) {
-            return await API.users.login(username, password);
-        } else {
-            // Fallback to local storage if API is not available
-            const userJson = localStorage.getItem(`user_${username}`);
-            if (!userJson) {
-                return { success: false, message: 'User not found' };
+            try {
+                const result = await API.users.login(username, password);
+                console.log('Login successful:', result);
+                return result;
+            } catch (apiError) {
+                console.error('API login error:', apiError);
+
+                // Check if it's a network error (server not available)
+                if (apiError.message.includes('Failed to fetch') ||
+                    apiError.message.includes('Network Error')) {
+                    console.warn('API server not available, falling back to local storage');
+                    // Fall through to local storage fallback
+                } else {
+                    // It's an API error, not a network error
+                    alert(`Login failed: ${apiError.message}`);
+                    return { success: false, message: apiError.message };
+                }
             }
-            
-            const user = JSON.parse(userJson);
-            const hashedPassword = hashPassword(password);
-            
-            if (user.password !== hashedPassword) {
-                return { success: false, message: 'Invalid password' };
-            }
-            
-            // Generate token
-            const token = generateToken();
-            
-            return {
-                success: true,
-                message: 'Login successful',
-                user: {
-                    username: user.username,
-                    createdAt: user.createdAt
-                },
-                token
-            };
         }
+
+        // Fallback to local storage if API is not available or network error
+        console.log('Using local storage fallback for login');
+        const userJson = localStorage.getItem(`user_${username}`);
+        if (!userJson) {
+            alert('User not found');
+            return { success: false, message: 'User not found' };
+        }
+
+        const user = JSON.parse(userJson);
+        const hashedPassword = hashPassword(password);
+
+        if (user.password !== hashedPassword) {
+            alert('Invalid password');
+            return { success: false, message: 'Invalid password' };
+        }
+
+        // Generate token
+        const token = generateToken();
+
+        return {
+            success: true,
+            message: 'Login successful',
+            user: {
+                username: user.username,
+                createdAt: user.createdAt
+            },
+            token
+        };
     } catch (error) {
         console.error('Error signing in:', error);
         alert(`Failed to sign in: ${error.message}`);
@@ -135,17 +174,17 @@ async function addHistoryLine(username, record) {
             // Fallback to local storage if API is not available
             const historyKey = `history_${username}`;
             let history = JSON.parse(localStorage.getItem(historyKey) || '[]');
-            
+
             const historyItem = {
                 id: Date.now(),
                 expression: record.expression,
                 result: record.result,
                 timestamp: new Date().toISOString()
             };
-            
+
             history.unshift(historyItem);
             localStorage.setItem(historyKey, JSON.stringify(history));
-            
+
             return { success: true, item: historyItem };
         }
     } catch (error) {
@@ -164,7 +203,7 @@ async function getLastNHistoryLines(username, n = 10) {
         // Get history items using the API client
         if (typeof API !== 'undefined' && API.history && API.history.getAll) {
             const historyItems = await API.history.getAll();
-            
+
             // Sort by timestamp (newest first) and limit to n items
             return historyItems
                 .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
@@ -173,7 +212,7 @@ async function getLastNHistoryLines(username, n = 10) {
             // Fallback to local storage if API is not available
             const historyKey = `history_${username}`;
             let history = JSON.parse(localStorage.getItem(historyKey) || '[]');
-            
+
             return history.slice(0, n);
         }
     } catch (error) {
@@ -197,7 +236,7 @@ async function clearHistory(username) {
             // Fallback to local storage if API is not available
             const historyKey = `history_${username}`;
             localStorage.removeItem(historyKey);
-            
+
             return { success: true, message: 'History cleared successfully' };
         }
     } catch (error) {
@@ -220,6 +259,6 @@ function hashPassword(password) {
 
 function generateToken() {
     // Simple token generation (use JWT in production)
-    return Math.random().toString(36).substring(2, 15) + 
+    return Math.random().toString(36).substring(2, 15) +
            Math.random().toString(36).substring(2, 15);
 }

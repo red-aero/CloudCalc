@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudCalc Feedback Form</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #0a0a12 0%, #16213e 100%);
+            color: #e0e0e0;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(30, 30, 46, 0.95);
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 5px 15px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h1, h2 {
+            color: #bb86fc;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="date"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background-color: rgba(40, 40, 60, 0.9);
+            color: #e0e0e0;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .radio-group, .checkbox-group {
+            margin-bottom: 10px;
+        }
+
+        .radio-option, .checkbox-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        th {
+            background-color: rgba(187, 134, 252, 0.15);
+        }
+
+        button {
+            background: rgba(187, 134, 252, 0.15);
+            border: 1px solid rgba(187, 134, 252, 0.5);
+            color: #bb86fc;
+            padding: 12px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: block;
+            margin: 30px auto 0;
+            width: 200px;
+        }
+
+        button:hover {
+            background: rgba(187, 134, 252, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .section {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 30px;
+        }
+
+        .thank-you {
+            text-align: center;
+            margin-top: 30px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CloudCalc User Feedback Form</h1>
+        <p>Thank you for participating in the testing of CloudCalc! Your feedback is invaluable in helping us improve the application. Please take a few minutes to complete this form after using CloudCalc.</p>
+
+        <form id="feedbackForm">
+            <div class="section">
+                <h2>User Information</h2>
+                <div class="form-group">
+                    <label for="name">Name (Optional):</label>
+                    <input type="text" id="name" name="name">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email (Optional):</label>
+                    <input type="email" id="email" name="email">
+                </div>
+
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Device Used:</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="device-desktop" name="device" value="Desktop/Laptop" required>
+                            <label for="device-desktop">Desktop/Laptop</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="device-tablet" name="device" value="Tablet">
+                            <label for="device-tablet">Tablet</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="device-smartphone" name="device" value="Smartphone">
+                            <label for="device-smartphone">Smartphone</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Browser Used:</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="browser-chrome" name="browser" value="Chrome" required>
+                            <label for="browser-chrome">Chrome</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="browser-firefox" name="browser" value="Firefox">
+                            <label for="browser-firefox">Firefox</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="browser-safari" name="browser" value="Safari">
+                            <label for="browser-safari">Safari</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="browser-edge" name="browser" value="Edge">
+                            <label for="browser-edge">Edge</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="browser-other" name="browser" value="Other">
+                            <label for="browser-other">Other:</label>
+                            <input type="text" id="browser-other-text" name="browser-other-text" style="width: 150px; margin-left: 10px;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Experience Level with Calculator Applications:</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="experience-beginner" name="experience" value="Beginner" required>
+                            <label for="experience-beginner">Beginner</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="experience-intermediate" name="experience" value="Intermediate">
+                            <label for="experience-intermediate">Intermediate</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="experience-advanced" name="experience" value="Advanced">
+                            <label for="experience-advanced">Advanced</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>General Impressions</h2>
+                <div class="form-group">
+                    <label>1. Overall, how would you rate your experience with CloudCalc?</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="rating-excellent" name="overall-rating" value="Excellent" required>
+                            <label for="rating-excellent">Excellent</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="rating-good" name="overall-rating" value="Good">
+                            <label for="rating-good">Good</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="rating-average" name="overall-rating" value="Average">
+                            <label for="rating-average">Average</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="rating-below-average" name="overall-rating" value="Below Average">
+                            <label for="rating-below-average">Below Average</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="rating-poor" name="overall-rating" value="Poor">
+                            <label for="rating-poor">Poor</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>2. How likely are you to recommend CloudCalc to others?</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="recommend-very-likely" name="recommend" value="Very Likely" required>
+                            <label for="recommend-very-likely">Very Likely</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="recommend-likely" name="recommend" value="Likely">
+                            <label for="recommend-likely">Likely</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="recommend-neutral" name="recommend" value="Neutral">
+                            <label for="recommend-neutral">Neutral</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="recommend-unlikely" name="recommend" value="Unlikely">
+                            <label for="recommend-unlikely">Unlikely</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="recommend-very-unlikely" name="recommend" value="Very Unlikely">
+                            <label for="recommend-very-unlikely">Very Unlikely</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="like-most">3. What did you like most about CloudCalc?</label>
+                    <textarea id="like-most" name="like-most" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="like-least">4. What did you like least about CloudCalc?</label>
+                    <textarea id="like-least" name="like-least" required></textarea>
+                </div>
+            </div>
+
+            <!-- More sections would be added here but are omitted for brevity -->
+            <!-- The full form would include Usability, Features, Performance, Visual Design, Documentation, and Future Improvements sections -->
+
+            <div class="section">
+                <h2>Additional Comments</h2>
+                <div class="form-group">
+                    <label for="additional-comments">Do you have any other comments, questions, or concerns about CloudCalc?</label>
+                    <textarea id="additional-comments" name="additional-comments"></textarea>
+                </div>
+            </div>
+
+            <button type="submit">Submit Feedback</button>
+
+            <div class="thank-you">
+                <p>Thank you for your feedback! Your input will help us improve CloudCalc and provide a better experience for all users.</p>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Thank you for your feedback! Your responses have been recorded.');
+            // In a real implementation, this would submit the form data to a server
+            // For now, we'll just show an alert
+        });
+
+        // Set today's date as the default
+        document.getElementById('date').valueAsDate = new Date();
+    </script>
+</body>
+</html>

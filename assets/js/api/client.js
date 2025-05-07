@@ -4,17 +4,17 @@
  */
 const API = {
     // Base URL for API requests
-    baseUrl: 'http://localhost:3000/api',
-    
+    baseUrl: 'http://localhost:3001/api',
+
     // Current authentication token
     authToken: null,
-    
+
     // Initialize the API client
     init() {
         // Check for saved token in localStorage
         this.authToken = localStorage.getItem('calculatorToken');
     },
-    
+
     // Set authentication token
     setAuthToken(token) {
         this.authToken = token;
@@ -24,20 +24,20 @@ const API = {
             localStorage.removeItem('calculatorToken');
         }
     },
-    
+
     // Get headers for authenticated requests
     getHeaders() {
         const headers = {
             'Content-Type': 'application/json'
         };
-        
+
         if (this.authToken) {
             headers['Authorization'] = `Bearer ${this.authToken}`;
         }
-        
+
         return headers;
     },
-    
+
     // User Management
     users: {
         // Register a new user
@@ -50,20 +50,20 @@ const API = {
                     },
                     body: JSON.stringify({ username, password })
                 });
-                
+
                 const data = await response.json();
-                
+
                 if (!response.ok) {
                     throw new Error(data.message || 'Registration failed');
                 }
-                
+
                 return data;
             } catch (error) {
                 console.error('API Error:', error);
                 throw error;
             }
         },
-        
+
         // Login a user
         async login(username, password) {
             try {
@@ -74,23 +74,23 @@ const API = {
                     },
                     body: JSON.stringify({ username, password })
                 });
-                
+
                 const data = await response.json();
-                
+
                 if (!response.ok) {
                     throw new Error(data.message || 'Login failed');
                 }
-                
+
                 // Save token
                 API.setAuthToken(data.token);
-                
+
                 return data;
             } catch (error) {
                 console.error('API Error:', error);
                 throw error;
             }
         },
-        
+
         // Logout a user
         async logout() {
             try {
@@ -98,21 +98,21 @@ const API = {
                     // Already logged out
                     return { success: true };
                 }
-                
+
                 const response = await fetch(`${API.baseUrl}/logout`, {
                     method: 'POST',
                     headers: API.getHeaders()
                 });
-                
+
                 const data = await response.json();
-                
+
                 // Clear token regardless of response
                 API.setAuthToken(null);
-                
+
                 if (!response.ok) {
                     throw new Error(data.message || 'Logout failed');
                 }
-                
+
                 return data;
             } catch (error) {
                 console.error('API Error:', error);
@@ -122,7 +122,7 @@ const API = {
             }
         }
     },
-    
+
     // History Management
     history: {
         // Get user history
@@ -132,20 +132,20 @@ const API = {
                     method: 'GET',
                     headers: API.getHeaders()
                 });
-                
+
                 const data = await response.json();
-                
+
                 if (!response.ok) {
                     throw new Error(data.message || 'Failed to fetch history');
                 }
-                
+
                 return data.history;
             } catch (error) {
                 console.error('API Error:', error);
                 throw error;
             }
         },
-        
+
         // Add history item
         async add(expression, result) {
             try {
@@ -154,20 +154,20 @@ const API = {
                     headers: API.getHeaders(),
                     body: JSON.stringify({ expression, result })
                 });
-                
+
                 const data = await response.json();
-                
+
                 if (!response.ok) {
                     throw new Error(data.message || 'Failed to add history item');
                 }
-                
+
                 return data.item;
             } catch (error) {
                 console.error('API Error:', error);
                 throw error;
             }
         },
-        
+
         // Clear history
         async clear() {
             try {
@@ -175,13 +175,13 @@ const API = {
                     method: 'DELETE',
                     headers: API.getHeaders()
                 });
-                
+
                 const data = await response.json();
-                
+
                 if (!response.ok) {
                     throw new Error(data.message || 'Failed to clear history');
                 }
-                
+
                 return data;
             } catch (error) {
                 console.error('API Error:', error);
@@ -189,7 +189,7 @@ const API = {
             }
         }
     },
-    
+
     // Unit Conversion
     conversion: {
         // Convert units
@@ -202,13 +202,13 @@ const API = {
                     },
                     body: JSON.stringify({ category, fromUnit, toUnit, value })
                 });
-                
+
                 const data = await response.json();
-                
+
                 if (!response.ok) {
                     throw new Error(data.message || 'Conversion failed');
                 }
-                
+
                 return data.result;
             } catch (error) {
                 console.error('API Error:', error);
